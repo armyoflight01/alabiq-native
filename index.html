@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALABIQ — We DeliveRED | Food, Groceries, Shops & Rides E-Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- =========================================================
+       STICKY HEADER & SUB-NAVIGATION (REFERENCE 1)
+       ========================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <div class="header-top">
+        <!-- Brand Logo (Uploaded ALABIQ Logo) -->
+        <div class="brand-logo" onclick="switchView('restaurants')" title="ALABIQ — We DeliveRED">
+          <img src="assets/logo.jpg" alt="ALABIQ We DeliveRED Logo" />
+          <div class="brand-text">
+            <div class="brand-title">ALAB<span>IQ</span></div>
+            <div class="brand-subtitle">Food. Groceries. We DeliveRED.</div>
+          </div>
+        </div>
+
+        <!-- Delivery Location Pill -->
+        <button class="location-pill" onclick="openLocationModal()">
+          <span class="loc-icon">📍</span>
+          <div class="location-info">
+            <span class="location-label">Deliver to</span>
+            <span class="location-value">
+              <span id="currentLocationText">Riyadh, Saudi Arabia</span>
+              <small>▾</small>
+            </span>
+          </div>
+        </button>
+
+        <!-- Global Live Search Bar -->
+        <div class="header-search">
+          <input
+            type="search"
+            id="globalSearchInput"
+            placeholder="Search restaurants, dishes, groceries and more..."
+            aria-label="Search restaurants, dishes, groceries and more"
+          />
+          <button class="search-btn" aria-label="Search">🔍</button>
+        </div>
+
+        <!-- Right Actions: Orders, Cart, Log In -->
+        <div class="header-actions">
+          <button class="action-btn" onclick="openOrdersDrawer()">
+            <span>📋</span>
+            <span>Orders</span>
+            <span class="badge-count" id="ordersBadgeCount" style="display:none;">0</span>
+          </button>
+
+          <button class="cart-btn" onclick="openCartDrawer()" aria-label="Open shopping cart">
+            🛒
+            <span class="cart-badge" id="cartBadgeCount">0</span>
+          </button>
+
+          <button class="login-btn" id="headerLoginBtn" onclick="switchView('auth')">
+            Log in
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category / View Sub-Navigation -->
+    <nav class="sub-nav" aria-label="Main Categories">
+      <div class="container">
+        <ul class="sub-nav-list">
+          <li>
+            <button class="sub-nav-btn" data-view="home" onclick="switchView('home')">
+              <span class="nav-ico">🏠</span> Home
+            </button>
+          </li>
+          <li>
+            <button class="sub-nav-btn active" data-view="restaurants" onclick="switchView('restaurants')">
+              <span class="nav-ico">🍽️</span> Restaurants
+            </button>
+          </li>
+          <li>
+            <button class="sub-nav-btn" data-view="groceries" onclick="switchView('groceries')">
+              <span class="nav-ico">🥬</span> Groceries
+            </button>
+          </li>
+          <li>
+            <button class="sub-nav-btn" data-view="shops" onclick="switchView('shops')">
+              <span class="nav-ico">🛍️</span> Shops
+            </button>
+          </li>
+          <li>
+            <button class="sub-nav-btn" data-view="deals" onclick="switchView('deals')">
+              <span class="nav-ico">🏷️</span> Deals
+            </button>
+          </li>
+          <li>
+            <button class="sub-nav-btn" data-view="trending" onclick="switchView('trending')">
+              <span class="nav-ico">⭐</span> New &amp; Trending
+            </button>
+          </li>
+          <li>
+            <button class="sub-nav-btn" data-view="rides" onclick="switchView('rides')">
+              <span class="nav-ico">🚖</span> Rides &amp; Pick-Drop
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =========================================================
+       VIEW 1: RESTAURANTS & MAIN SHOP DASHBOARD (REFERENCE 1)
+       ========================================================= -->
+  <main id="view-restaurants" class="view-section active">
+    <div class="container">
+      <!-- Top Hero + Right Sidebar Grid -->
+      <div class="shop-top-grid">
+        <!-- Left Hero Banner -->
+        <div class="shop-hero-banner">
+          <div class="shop-hero-content">
+            <h1>Your favorites, delivered fast.</h1>
+            <p>Discover top restaurants with live tracking and exclusive partner picks, all in one tap.</p>
+            <div class="hero-pills">
+              <div class="hero-pill"><span>⏱️</span> 15–25 min Avg. Delivery</div>
+              <div class="hero-pill"><span>🛵</span> From SAR 10 Delivery Fee</div>
+              <div class="hero-pill"><span>📍</span> Live Tracking</div>
+            </div>
+          </div>
+          <div class="shop-hero-visual">
+            <div class="hero-plate-frame">
+              <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281298?auto=format&fit=crop&w=700&q=80" alt="AlabIQ Signature Pasta & Dishes" />
+            </div>
+            <div class="scooter-badge">
+              🛵 We DeliveRED
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar Widgets -->
+        <aside class="shop-sidebar">
+          <!-- Exclusive Offer Card -->
+          <div class="exclusive-card">
+            <div>
+              <span class="exclusive-tag">EXCLUSIVE OFFER</span>
+              <div class="exclusive-title">BLACK<br/>PINOY</div>
+              <div class="exclusive-sub">Popular</div>
+              <button class="btn-orange-pill" onclick="openStoreModal('black-pinoy')">
+                Order Now →
+              </button>
+            </div>
+            <div class="exclusive-logo" style="background:linear-gradient(135deg,#1e1b4b,#dc2626);color:#fff;font-weight:900;font-size:0.7rem;text-align:center;">
+              👨🏾‍🍳<br/>BLACK PINOY
+            </div>
+          </div>
+
+          <!-- Green Delivery Fee Pill -->
+          <div class="delivery-fee-banner">
+            <div class="bike-ico">🚲</div>
+            <span>From SAR 10.00 within 15 km</span>
+          </div>
+
+          <!-- Your Recent Orders Card -->
+          <div class="recent-orders-card">
+            <h4>Your Recent Orders</h4>
+            <div id="recentOrdersWidgetContent">
+              <p><span class="link-orange" onclick="switchView('auth')">Sign in</span> to reorder from your last meals.</p>
+            </div>
+          </div>
+
+          <!-- Explore More Quick Tiles -->
+          <div class="explore-more-box">
+            <h4>Explore More</h4>
+            <div class="explore-mini-grid">
+              <div class="explore-mini-tile" onclick="switchView('groceries')">
+                <div class="explore-mini-icon" style="background:#ecfdf5;color:#059669;">🥬</div>
+                <span>Groceries</span>
+              </div>
+              <div class="explore-mini-tile" onclick="switchView('shops')">
+                <div class="explore-mini-icon" style="background:#f3e8ff;color:#7c3aed;">🏪</div>
+                <span>Shops</span>
+              </div>
+              <div class="explore-mini-tile" onclick="switchView('deals')">
+                <div class="explore-mini-icon" style="background:#ffe4e6;color:#e11d48;">%</div>
+                <span>Deals</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Popular Categories Section -->
+      <section class="section-block">
+        <div class="section-head">
+          <h2 class="section-title">Popular Categories</h2>
+          <div class="carousel-controls">
+            <button class="circle-arrow" onclick="scrollCarousel('categoriesRow', -260)" aria-label="Scroll left">‹</button>
+            <button class="circle-arrow" onclick="scrollCarousel('categoriesRow', 260)" aria-label="Scroll right">›</button>
+          </div>
+        </div>
+        <div class="categories-row" id="categoriesRow"></div>
+      </section>
+
+      <!-- Popular Near You Section -->
+      <section class="section-block">
+        <div class="section-head">
+          <h2 class="section-title">Popular Near You</h2>
+          <div class="carousel-controls">
+            <button class="circle-arrow" onclick="selectCategory('all')" title="Reset Filter" style="width:auto;padding:0 12px;border-radius:999px;font-size:0.76rem;font-weight:700;">Show All</button>
+          </div>
+        </div>
+        <div class="stores-grid" id="popularStoresGrid"></div>
+      </section>
+
+      <!-- Full Dish & Grocery Product Catalog -->
+      <section class="section-block">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Order Dishes &amp; Daily Essentials</h2>
+            <p style="font-size:0.84rem;color:#64748b;">Click any dish to add directly to your cart, or click a restaurant card above to view its full menu.</p>
+          </div>
+        </div>
+        <div class="products-grid" id="shopProductsGrid"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =========================================================
+       VIEW 2: HOME LANDING OVERVIEW (REFERENCES 5 & 6)
+       ========================================================= -->
+  <section id="view-home" class="view-section">
+    <div class="home-hero">
+      <div class="container">
+        <div class="home-hero-grid">
+          <!-- Left Column -->
+          <div>
+            <span class="eyebrow-pill">🔥 ALABIQ — WE DELIVERED</span>
+            <h1>
+              Shop food,<br/>
+              groceries <span class="accent">&amp; more</span> —<br/>
+              delivered fast.
+            </h1>
+            <p>
+              From your favorite Filipino, Chinese &amp; Arabic restaurants to fresh hypermarket groceries and upfront-fare airport rides across Saudi Arabia.
+            </p>
+
+            <div class="hero-search-bar">
+              <input type="text" placeholder="Enter your street or neighborhood in Riyadh..." id="homeAddressInput" />
+              <button onclick="switchView('restaurants')">Explore →</button>
+            </div>
+
+            <div class="hero-mini-services">
+              <div class="hero-mini-card" onclick="switchView('restaurants')">
+                <span style="font-size:1.3rem;">🍔</span>
+                <strong>Food</strong>
+              </div>
+              <div class="hero-mini-card" onclick="switchView('groceries')">
+                <span style="font-size:1.3rem;">🛒</span>
+                <strong>Groceries</strong>
+              </div>
+              <div class="hero-mini-card" onclick="switchView('shops')">
+                <span style="font-size:1.3rem;">🏪</span>
+                <strong>Shops</strong>
+              </div>
+              <div class="hero-mini-card" onclick="switchView('rides')">
+                <span style="font-size:1.3rem;">🚖</span>
+                <strong>Rides</strong>
+              </div>
+            </div>
+
+            <div class="hero-stats-row">
+              <div class="hero-stat">
+                <strong>500+</strong>
+                <span>Partner Stores</span>
+              </div>
+              <div class="hero-stat">
+                <strong>15–25m</strong>
+                <span>Avg. Delivery Time</span>
+              </div>
+              <div class="hero-stat">
+                <strong>24/7</strong>
+                <span>Live GPS Support</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Phone Mockup -->
+          <div class="phone-showcase-wrap">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-float-card left">⚡ 24/7 Fast Delivery</div>
+              <div class="phone-float-card right">★ 4.9 App Rating</div>
+              <div class="phone-screen" id="phoneScreenContent"></div>
+            </div>
+            <div class="phone-mode-switcher">
+              <button class="phone-tab-btn active" data-mode="map" onclick="switchPhonePreview('map')">📍 Live Rider Map</button>
+              <button class="phone-tab-btn" data-mode="app" onclick="switchPhonePreview('app')">🛍️ App Storefront</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Popular Near You Preview -->
+      <section class="section-block">
+        <div class="section-head">
+          <h2 class="section-title">Popular Near You</h2>
+          <button class="btn-orange-pill" onclick="switchView('restaurants')">Explore All Stores →</button>
+        </div>
+        <div class="stores-grid" id="homePopularStoresGrid"></div>
+      </section>
+
+      <!-- 3 Service Pillars -->
+      <section class="section-block">
+        <div style="text-align:center;max-width:640px;margin:0 auto 28px;">
+          <span class="eyebrow-pill">ALL-IN-ONE SUPER APP</span>
+          <h2 class="section-title" style="font-size:1.85rem;">Shop food, groceries &amp; more <span style="color:var(--brand-orange);">delivered to your door.</span></h2>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <div>
+              <div class="pillar-icon">🍽️</div>
+              <h3>Food Delivery</h3>
+              <p>Craving Black Pinoy, Chowking, or Arabic grill? Order hot meals from 500+ local &amp; international kitchens open 24/7.</p>
+            </div>
+            <button class="pillar-link" onclick="switchView('restaurants')">Order Food Now →</button>
+          </div>
+
+          <div class="pillar-card">
+            <div>
+              <div class="pillar-icon">🛒</div>
+              <h3>Groceries &amp; Shops</h3>
+              <p>Stock up on fresh fruits, pantry staples, and Asian specialty products from Al Wafa, At Tawi Trading, and Pinas Supermarket.</p>
+            </div>
+            <button class="pillar-link" onclick="switchView('groceries')">Shop Groceries →</button>
+          </div>
+
+          <div class="pillar-card">
+            <div>
+              <div class="pillar-icon">🚖</div>
+              <h3>Pick &amp; Drop / Airport Rides</h3>
+              <p>Send urgent packages across the city or book reliable airport transfers with upfront fares you see before you ride.</p>
+            </div>
+            <button class="pillar-link" onclick="switchView('rides')">Book a Ride →</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Dark Feature Band (Reference 5 & 6: "Watch AlabIQ work for you") -->
+    <section class="dark-work-band">
+      <div class="container">
+        <div class="dark-work-grid">
+          <div>
+            <span class="eyebrow-pill" style="background:rgba(249,115,22,0.15);border-color:rgba(249,115,22,0.3);">BUILT FOR SPEED</span>
+            <h2>Watch AlabIQ <span>work for you</span></h2>
+            <p style="color:#94a3b8;font-size:0.95rem;">
+              Every order is matched with the nearest dedicated AlabIQ rider so your food arrives piping hot and your groceries stay chilled.
+            </p>
+            <ul class="check-list">
+              <li>Real-time GPS rider tracking from kitchen to doorstep</li>
+              <li>Flat SAR 10.00 delivery fee within 15 km across Riyadh</li>
+              <li>Multi-store support: restaurants, hypermarkets &amp; courier rides</li>
+            </ul>
+          </div>
+          <div style="background:#1e293b;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);position:relative;">
+            <img src="https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=900&q=80" alt="AlabIQ Rider Delivering Fast" style="width:100%;height:300px;object-fit:cover;opacity:0.9;" />
+            <div style="position:absolute;bottom:16px;left:16px;right:16px;background:rgba(15,23,42,0.9);backdrop-filter:blur(8px);padding:14px 18px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <strong style="display:block;font-size:0.9rem;">ALABIQ — We DeliveRED Fleet</strong>
+                <span style="font-size:0.76rem;color:#94a3b8;">Average dispatch under 45 seconds</span>
+              </div>
+              <button class="btn-orange-pill" onclick="switchView('restaurants')">Try It Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who We Are & FAQ (References 5 & 6) -->
+    <div class="container">
+      <section class="section-block">
+        <div style="text-align:center;margin-bottom:24px;">
+          <span class="eyebrow-pill">ABOUT US</span>
+          <h2 class="section-title" style="font-size:1.75rem;">Who We Are</h2>
+        </div>
+        <div class="who-we-are-grid">
+          <div>
+            <h3 style="font-size:1.6rem;font-weight:900;line-height:1.2;margin-bottom:14px;">
+              Empowering the <span style="color:var(--brand-orange);">Kingdom of Saudi Arabia's</span> Daily Rhythm.
+            </h3>
+            <p style="font-size:0.92rem;color:#475569;">
+              AlabIQ connects communities across Riyadh with the flavors of home, trusted hypermarkets, and dependable city mobility. Whether it's a midnight meal from Black Pinoy or weekly groceries from Al Wafa, We DeliveRED.
+            </p>
+          </div>
+          <div class="mission-box">
+            <span style="font-size:0.7rem;font-weight:800;color:var(--brand-red);text-transform:uppercase;letter-spacing:0.06em;">OUR PROMISE</span>
+            <h4 style="font-size:1.15rem;font-weight:800;margin:8px 0;">Transparent pricing. Zero hidden surprises.</h4>
+            <p style="font-size:0.86rem;color:#475569;">
+              With delivery starting at SAR 10.00 within 15 km and upfront airport transfer fares, you always know exactly what you pay before tapping order.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Know AlabIQ FAQ Accordion -->
+      <section class="section-block">
+        <div style="text-align:center;">
+          <h2 class="section-title" style="font-size:1.65rem;">Know <span style="color:var(--brand-orange);">AlabIQ</span></h2>
+          <p style="font-size:0.86rem;color:#64748b;">Frequently asked questions about ordering, delivery fees, and rides.</p>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item open">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How fast does AlabIQ deliver food and groceries?</span>
+              <span>▾</span>
+            </button>
+            <div class="faq-answer">
+              Restaurant orders take an average of 15–25 minutes, while full grocery orders from partner hypermarkets are delivered within 25–35 minutes with live GPS tracking.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How much is the delivery fee?</span>
+              <span>▾</span>
+            </button>
+            <div class="faq-answer">
+              Delivery starts from a flat SAR 10.00 within 15 km. You can also use promo code <strong>FREEDEL</strong> or <strong>ALABIQ20</strong> in your cart for instant savings!
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Can I book airport transfers and package delivery in the same app?</span>
+              <span>▾</span>
+            </button>
+            <div class="faq-answer">
+              Yes! Switch to the "Rides &amp; Pick-Drop" tab anytime to calculate an upfront fare to King Khalid International Airport (RUH) or dispatch a courier for packages.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       VIEW 3: GROCERIES HUB
+       ========================================================= -->
+  <section id="view-groceries" class="view-section">
+    <div class="container">
+      <div class="section-block">
+        <div style="background:linear-gradient(135deg,#ecfdf5 0%,#d1fae5 100%);border:1px solid #a7f3d0;border-radius:24px;padding:32px;margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+          <div>
+            <span class="eyebrow-pill" style="background:#fff;color:#047857;border-color:#6ee7b7;">🥬 FRESH HYPERMARKETS</span>
+            <h1 style="font-size:2rem;font-weight:900;color:#064e3b;margin-bottom:8px;">Groceries &amp; Supermarkets</h1>
+            <p style="color:#065f46;font-size:0.95rem;max-width:540px;">Order fresh produce, pantry staples, and Asian specialty imports from Riyadh's top supermarkets.</p>
+          </div>
+          <div style="font-weight:800;background:#fff;padding:12px 20px;border-radius:999px;color:#047857;box-shadow:var(--shadow-sm);">
+            🛵 25–35 Min Chilled Delivery
+          </div>
+        </div>
+
+        <div class="section-head">
+          <h2 class="section-title">Partner Supermarkets</h2>
+        </div>
+        <div class="stores-grid" id="groceriesStoresGrid"></div>
+
+        <div class="section-head" style="margin-top:36px;">
+          <h2 class="section-title">Featured Grocery Bundles &amp; Staples</h2>
+        </div>
+        <div class="products-grid" id="groceryProductsGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       VIEW 4: SHOPS & SERVICES DIRECTORY (REFERENCE 4)
+       ========================================================= -->
+  <section id="view-shops" class="view-section">
+    <div class="container">
+      <div class="section-block">
+        <span class="eyebrow-pill">ALL PARTNER STORES</span>
+        <h1 style="font-size:2.2rem;font-weight:900;margin-bottom:8px;">Order food, shop, or book a ride.</h1>
+        <p style="color:#64748b;margin-bottom:24px;">Browse all verified AlabIQ restaurants, hypermarkets, and specialty stores across Riyadh.</p>
+
+        <div class="section-head">
+          <h2 class="section-title">Restaurants near you</h2>
+        </div>
+        <div class="stores-grid" id="shopsRestaurantGrid"></div>
+
+        <div class="section-head" style="margin-top:40px;">
+          <h2 class="section-title">Shop partner stores</h2>
+        </div>
+        <div class="stores-grid" id="shopsPartnerGrid"></div>
+
+        <!-- Airport Transfers Dark Banner (Exact match to Reference 4) -->
+        <div class="airport-cta-banner">
+          <div>
+            <span style="font-size:0.7rem;font-weight:800;color:var(--brand-orange);text-transform:uppercase;letter-spacing:0.08em;">✈️ AIRPORT &amp; CITY RIDES</span>
+            <h3>Airport transfers with a fare you see first.</h3>
+            <p>Book reliable rides to King Khalid International Airport (RUH) or send packages with live tracking.</p>
+          </div>
+          <button class="btn-orange-pill" style="padding:12px 24px;font-size:0.9rem;" onclick="switchView('rides')">
+            Book a ride →
+          </button>
+        </div>
+
+        <!-- How it works 3 steps (Reference 4) -->
+        <div style="margin-top:40px;">
+          <h3 class="section-title" style="margin-bottom:16px;">How it works</h3>
+          <div class="pillars-grid">
+            <div class="pillar-card">
+              <div style="font-size:1.5rem;margin-bottom:8px;">🔍</div>
+              <h3>1. Browse</h3>
+              <p>Pick from 500+ restaurants, Filipino &amp; Asian supermarkets, or city ride options near you.</p>
+            </div>
+            <div class="pillar-card">
+              <div style="font-size:1.5rem;margin-bottom:8px;">🛍️</div>
+              <h3>2. Order or book</h3>
+              <p>Add dishes to your cart, apply a promo code, and check out with Cash, Mada, or Apple Pay.</p>
+            </div>
+            <div class="pillar-card">
+              <div style="font-size:1.5rem;margin-bottom:8px;">📍</div>
+              <h3>3. Track live</h3>
+              <p>Watch your AlabIQ rider in real time from pickup right to your front door.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       VIEW 5: DEALS & PROMO VOUCHERS
+       ========================================================= -->
+  <section id="view-deals" class="view-section">
+    <div class="container">
+      <div class="section-block">
+        <span class="eyebrow-pill">🏷️ EXCLUSIVE SAVINGS</span>
+        <h1 style="font-size:2rem;font-weight:900;margin-bottom:8px;">Today's Hot Deals &amp; Vouchers</h1>
+        <p style="color:#64748b;margin-bottom:24px;">Click any voucher below to activate it automatically in your shopping cart!</p>
+
+        <div class="pillars-grid" style="margin-bottom:36px;">
+          <div class="pillar-card" style="background:var(--brand-peach);border-color:#fdba74;">
+            <div>
+              <span class="store-badge featured" style="position:static;display:inline-block;margin-bottom:10px;">20% OFF</span>
+              <h3>Code: ALABIQ20</h3>
+              <p>Get 20% off your entire food or grocery order. No minimum spend required!</p>
+            </div>
+            <button class="btn-orange-pill" onclick="copyVoucherAndSwitch('ALABIQ20')">Apply ALABIQ20 →</button>
+          </div>
+
+          <div class="pillar-card" style="background:#ecfdf5;border-color:#6ee7b7;">
+            <div>
+              <span class="store-badge new" style="position:static;display:inline-block;margin-bottom:10px;">FREE DELIVERY</span>
+              <h3>Code: FREEDEL</h3>
+              <p>Waive the SAR 10.00 delivery fee on any restaurant or hypermarket order today.</p>
+            </div>
+            <button class="btn-orange-pill" onclick="copyVoucherAndSwitch('FREEDEL')">Apply FREEDEL →</button>
+          </div>
+
+          <div class="pillar-card" style="background:#fff1f2;border-color:#fda4af;">
+            <div>
+              <span class="store-badge popular" style="position:static;display:inline-block;margin-bottom:10px;">SAR 10 OFF</span>
+              <h3>Code: RED10</h3>
+              <p>Instant SAR 10.00 discount celebrating ALABIQ — We DeliveRED launch week.</p>
+            </div>
+            <button class="btn-orange-pill" onclick="copyVoucherAndSwitch('RED10')">Apply RED10 →</button>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <h2 class="section-title">Discounted Bundles &amp; Flash Offers</h2>
+        </div>
+        <div class="products-grid" id="dealsProductsGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       VIEW 6: NEW & TRENDING
+       ========================================================= -->
+  <section id="view-trending" class="view-section">
+    <div class="container">
+      <div class="section-block">
+        <span class="eyebrow-pill">⭐ MOST ORDERED IN RIYADH</span>
+        <h1 style="font-size:2rem;font-weight:900;margin-bottom:8px;">New &amp; Trending Favorites</h1>
+        <p style="color:#64748b;margin-bottom:24px;">Top-rated dishes and bestsellers loved by the AlabIQ community this week.</p>
+        <div class="products-grid" id="trendingProductsGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       VIEW 7: RIDES, AIRPORT TRANSFERS & PICK-DROP
+       ========================================================= -->
+  <section id="view-rides" class="view-section">
+    <div class="container">
+      <div class="section-block">
+        <div class="home-hero-grid">
+          <div>
+            <span class="eyebrow-pill">🚖 ALABIQ MOBILITY &amp; COURIER</span>
+            <h1 style="font-size:2.2rem;font-weight:900;margin-bottom:12px;">Airport transfers &amp; package delivery with upfront fares.</h1>
+            <p style="color:#475569;margin-bottom:24px;">
+              Whether you're heading to King Khalid International Airport (RUH) or sending an urgent parcel across Riyadh, see your guaranteed fare before you book.
+            </p>
+            <div class="auth-form-card">
+              <form onsubmit="bookRideNow(event)">
+                <div class="form-group">
+                  <label>SERVICE TYPE</label>
+                  <div class="input-with-icon">
+                    <span class="left-ico">🚖</span>
+                    <select id="rideServiceType" onchange="calculateRideFare()">
+                      <option value="airport">✈️ Airport Transfer (King Khalid Intl RUH)</option>
+                      <option value="package">📦 Instant Pick &amp; Drop Package Courier</option>
+                      <option value="city">🚗 City Comfort Ride</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>PICKUP LOCATION</label>
+                  <div class="input-with-icon">
+                    <span class="left-ico">📍</span>
+                    <input type="text" id="ridePickupInput" value="Al Olaya District, Riyadh" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>DROPOFF DESTINATION</label>
+                  <div class="input-with-icon">
+                    <span class="left-ico">🏁</span>
+                    <input type="text" id="rideDropoffInput" value="King Khalid International Airport (Terminal 1)" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>ESTIMATED DISTANCE (KM)</label>
+                  <input type="range" id="rideDistanceKm" min="3" max="45" value="18" oninput="calculateRideFare();document.getElementById('kmVal').textContent=this.value+' km'" style="width:100%;accent-color:var(--brand-orange);" />
+                  <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#64748b;margin-top:4px;">
+                    <span id="kmVal">18 km</span>
+                    <span>Upfront Fixed Rate</span>
+                  </div>
+                </div>
+
+                <div style="background:var(--brand-peach);padding:14px 18px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border:1px solid #fed7aa;">
+                  <span style="font-weight:700;font-size:0.88rem;">Guaranteed Upfront Fare</span>
+                  <strong id="rideFareResult" style="font-size:1.3rem;font-weight:900;color:var(--brand-red);">SAR 85.00</strong>
+                </div>
+
+                <button type="submit" class="auth-submit-btn">Confirm &amp; Dispatch Driver →</button>
+              </form>
+            </div>
+          </div>
+
+          <div style="background:#0f172a;color:#fff;border-radius:24px;padding:32px;box-shadow:var(--shadow-lg);">
+            <span class="eyebrow-pill" style="background:rgba(249,115,22,0.2);border:none;">LIVE FLEET COVERAGE</span>
+            <h3 style="font-size:1.5rem;font-weight:800;margin-bottom:12px;">Why ride &amp; ship with AlabIQ?</h3>
+            <ul class="check-list" style="margin-bottom:24px;">
+              <li>Upfront fixed pricing — zero surge surprises</li>
+              <li>24/7 airport pickup &amp; flight-delayed wait guarantee</li>
+              <li>Same-hour scooter &amp; car courier for documents, food &amp; gifts</li>
+              <li>Real-time trip sharing with family or recipients</li>
+            </ul>
+            <img src="assets/logo.jpg" alt="ALABIQ We DeliveRED" style="max-width:220px;border-radius:16px;margin-top:16px;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       VIEW 8: SPLIT-SCREEN SIGN IN / SIGN UP (REFERENCE 3)
+       ========================================================= -->
+  <section id="view-auth" class="view-section">
+    <div class="auth-split-wrapper">
+      <!-- Left Branded Panel -->
+      <div class="auth-left-panel">
+        <div class="brand-logo" onclick="switchView('restaurants')">
+          <img src="assets/logo.jpg" alt="ALABIQ Logo" />
+          <div class="brand-text">
+            <div class="brand-title">ALAB<span>IQ</span></div>
+            <div class="brand-subtitle">We DeliveRED</div>
+          </div>
+        </div>
+
+        <div style="my:auto;padding:32px 0;">
+          <span class="eyebrow-pill" style="background:#ffffff;">● ALL-IN-ONE PLATFORM</span>
+          <h1 style="font-size:clamp(2rem,3.5vw,2.85rem);font-weight:900;line-height:1.12;margin-bottom:14px;">
+            Welcome back to <span style="color:var(--brand-orange);">AlabIQ</span>
+          </h1>
+          <p style="color:#475569;font-size:0.95rem;max-width:420px;">
+            Sign in to book rides, track deliveries, and manage your account — all in one place.
+          </p>
+
+          <div class="auth-feature-list">
+            <div class="auth-feature-row">
+              <div class="auth-feature-ico">🍴</div>
+              <span>Order food from 500+ restaurants</span>
+            </div>
+            <div class="auth-feature-row">
+              <div class="auth-feature-ico">📦</div>
+              <span>Send packages with live tracking</span>
+            </div>
+            <div class="auth-feature-row">
+              <div class="auth-feature-ico">📍</div>
+              <span>Book rides &amp; airport transfers</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:0.76rem;color:#64748b;">
+          © 2026 AlabIQ — We DeliveRED. Fast delivery, easy booking.
+        </div>
+      </div>
+
+      <!-- Right Form Panel -->
+      <div class="auth-right-panel">
+        <button class="back-home-btn" onclick="switchView('restaurants')">
+          ← Back to home
+        </button>
+
+        <div class="auth-card-container">
+          <h2 id="authHeading">Sign in</h2>
+          <p id="authSubheading">Enter your credentials to access your account</p>
+
+          <div class="auth-form-card">
+            <form onsubmit="handleAuthSubmit(event)">
+              <div class="form-group" id="authNameGroup" style="display:none;">
+                <label>FULL NAME</label>
+                <div class="input-with-icon">
+                  <span class="left-ico">👤</span>
+                  <input type="text" id="authNameInput" placeholder="Enter your full name" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>EMAIL ADDRESS</label>
+                <div class="input-with-icon">
+                  <span class="left-ico">✉️</span>
+                  <input type="email" id="authEmailInput" placeholder="email@alabiq.com" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>PASSWORD</label>
+                <div class="input-with-icon">
+                  <span class="left-ico">🔒</span>
+                  <input type="password" id="authPasswordInput" placeholder="Enter your password" required />
+                  <span class="right-ico" onclick="togglePasswordVisibility()" title="Show/Hide Password">👁️</span>
+                </div>
+                <div style="text-align:right;margin-top:6px;">
+                  <span style="font-size:0.75rem;color:var(--brand-orange);font-weight:700;cursor:pointer;" onclick="showToast('Password reset link sent to your email!','📩')">Forgot password?</span>
+                </div>
+              </div>
+
+              <button type="submit" class="auth-submit-btn" id="authSubmitBtn">
+                → Sign In
+              </button>
+            </form>
+
+            <div style="text-align:center;margin:18px 0;font-size:0.75rem;color:#94a3b8;position:relative;">
+              <span>OR</span>
+            </div>
+
+            <div style="text-align:center;font-size:0.82rem;color:#475569;" id="authSwitchPrompt">
+              Don't have an account? <span style="color:#ea580c;font-weight:800;cursor:pointer;" onclick="toggleAuthMode()">Sign Up</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       DARK FOOTER (EXACT MATCH TO REFERENCES 1, 4, 5, 6)
+       ========================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <!-- Top App Download Bar -->
+      <div class="footer-cta-bar">
+        <div>
+          <span class="footer-cta-eyebrow">DOWNLOAD THE APP</span>
+          <div class="footer-cta-title">Fast delivery. <span>One smart app.</span></div>
+        </div>
+        <div class="store-badges">
+          <button class="app-store-btn" onclick="showToast('AlabIQ iOS App coming to App Store!','🍎')">
+            <span style="font-size:1.3rem;"></span>
+            <div style="text-align:left;line-height:1.1;">
+              <small style="font-size:0.62rem;color:#94a3b8;display:block;">Download on the</small>
+              <strong style="font-size:0.84rem;">App Store</strong>
+            </div>
+          </button>
+          <button class="app-store-btn" onclick="showToast('AlabIQ Android App coming to Google Play!','▶️')">
+            <span style="font-size:1.2rem;">▶</span>
+            <div style="text-align:left;line-height:1.1;">
+              <small style="font-size:0.62rem;color:#94a3b8;display:block;">Get it on</small>
+              <strong style="font-size:0.84rem;">Google Play</strong>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4-Column Main Footer -->
+      <div class="footer-main-grid">
+        <!-- Col 1: Brand -->
+        <div>
+          <div class="brand-logo" onclick="switchView('home')">
+            <img src="assets/logo.jpg" alt="ALABIQ Logo" style="height:42px;background:#fff;padding:2px;" />
+            <div class="brand-text">
+              <div class="brand-title" style="color:#fff;">ALAB<span>IQ</span></div>
+              <div class="brand-subtitle" style="color:#94a3b8;">We DeliveRED</div>
+            </div>
+          </div>
+          <p class="footer-brand-desc">
+            Order food, send packages, and book airport transfers, all in one app with real-time tracking and exclusive rewards across Riyadh.
+          </p>
+          <div class="social-links">
+            <button class="social-btn" onclick="showToast('Following AlabIQ on Facebook','👍')" aria-label="Facebook">f</button>
+            <button class="social-btn" onclick="showToast('Following AlabIQ on LinkedIn','💼')" aria-label="LinkedIn">in</button>
+            <button class="social-btn" onclick="showToast('Following AlabIQ on Instagram','📸')" aria-label="Instagram">◎</button>
+            <button class="social-btn" onclick="showToast('Following AlabIQ on TikTok','🎵')" aria-label="TikTok">♪</button>
+          </div>
+        </div>
+
+        <!-- Col 2: Explore -->
+        <div class="footer-col">
+          <h5>EXPLORE</h5>
+          <ul class="footer-links">
+            <li><button onclick="switchView('home')">Our Services</button></li>
+            <li><button onclick="switchView('restaurants')">Food Delivery</button></li>
+            <li><button onclick="switchView('shops')">Shop</button></li>
+            <li><button onclick="switchView('rides')">Pick &amp; Drop</button></li>
+            <li><button onclick="switchView('shops')">How It Works</button></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Company -->
+        <div class="footer-col">
+          <h5>COMPANY</h5>
+          <ul class="footer-links">
+            <li><button onclick="switchView('home')">About Us</button></li>
+            <li><button onclick="showToast('Join the AlabIQ Rider & Partner Fleet!','🛵')">Careers</button></li>
+            <li><button onclick="switchView('trending')">Blog &amp; Trending</button></li>
+            <li><button onclick="switchView('shops')">Partners</button></li>
+            <li><button onclick="switchView('home')">FAQ</button></li>
+            <li><button onclick="showToast('24/7 Live Support: customerservice@alabiq.com','💬')">Customer Service</button></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact -->
+        <div class="footer-col">
+          <h5>CONTACT</h5>
+          <ul class="contact-list">
+            <li>
+              <span class="contact-ico">📍</span>
+              <span>Airport Road, Qurtubah, Riyadh 13244<br/>Business Gate, Riyadh, K.S.A</span>
+            </li>
+            <li>
+              <span class="contact-ico">✉️</span>
+              <span>customerservice@alabiq.com</span>
+            </li>
+            <li>
+              <span class="contact-ico">📞</span>
+              <span>+966 56 176 6883</span>
+            </li>
+            <li>
+              <span class="contact-ico">💬</span>
+              <span>WhatsApp +966 56 176 6883</span>
+            </li>
+            <li>
+              <span class="contact-ico">🌐</span>
+              <span>www.alabiq.com</span>
+            </li>
+            <li>
+              <span class="contact-ico">🕒</span>
+              <span>Daily, 7 AM - midnight (24/7 Partner Stores)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Copyright -->
+      <div class="footer-bottom">
+        <div>© 2026 <strong style="color:var(--brand-orange);">AlabIQ — We DeliveRED</strong>. All rights reserved.</div>
+        <div style="display:flex;gap:18px;">
+          <a href="#privacy" onclick="event.preventDefault();showToast('Privacy Policy viewed','🔒')">Privacy Policy</a>
+          <a href="#terms" onclick="event.preventDefault();showToast('Terms of Service viewed','📄')">Terms of Service</a>
+          <a href="#cookies" onclick="event.preventDefault();showToast('Cookie Preferences saved','🍪')">Cookie Preferences</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       MOBILE BOTTOM NAVIGATION BAR
+       ========================================================= -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <div class="mobile-bottom-nav-inner">
+      <button class="mob-nav-item" data-view="home" onclick="switchView('home')">
+        <span>🏠</span>
+        <span>Home</span>
+      </button>
+      <button class="mob-nav-item active" data-view="restaurants" onclick="switchView('restaurants')">
+        <span>🍽️</span>
+        <span>Food</span>
+      </button>
+      <button class="mob-nav-item" data-view="groceries" onclick="switchView('groceries')">
+        <span>🥬</span>
+        <span>Groceries</span>
+      </button>
+      <button class="mob-nav-item" data-view="rides" onclick="switchView('rides')">
+        <span>🚖</span>
+        <span>Rides</span>
+      </button>
+      <button class="mob-nav-item" onclick="openCartDrawer()">
+        <span>🛒</span>
+        <span>Cart (<span id="mobCartBadge">0</span>)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =========================================================
+       MODALS & DRAWERS (STORE MENU, CART, ORDERS, LOCATION)
+       ========================================================= -->
+
+  <!-- Store Menu Modal -->
+  <div class="modal-backdrop" id="storeMenuModal" onclick="if(event.target===this)closeStoreModal()">
+    <div class="store-modal">
+      <div class="store-modal-header">
+        <div id="storeModalHeaderContent"></div>
+        <button class="close-x" onclick="closeStoreModal()">✕</button>
+      </div>
+      <div class="store-modal-body" id="storeModalBodyContent"></div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart Drawer -->
+  <div class="drawer-backdrop" id="cartDrawerBackdrop" onclick="closeCartDrawer()"></div>
+  <aside class="side-drawer" id="cartDrawer" aria-label="Shopping Cart">
+    <div class="drawer-header">
+      <h3>🛒 Your AlabIQ Cart</h3>
+      <button class="close-x" onclick="closeCartDrawer()">✕</button>
+    </div>
+    <div class="drawer-body" id="cartDrawerBody"></div>
+    <div class="drawer-footer" id="cartDrawerFooter"></div>
+  </aside>
+
+  <!-- Live Orders Drawer -->
+  <div class="drawer-backdrop" id="ordersDrawerBackdrop" onclick="closeOrdersDrawer()"></div>
+  <aside class="side-drawer" id="ordersDrawer" aria-label="Your Orders">
+    <div class="drawer-header">
+      <h3>📋 Your Live Orders</h3>
+      <button class="close-x" onclick="closeOrdersDrawer()">✕</button>
+    </div>
+    <div class="drawer-body" id="ordersDrawerBody"></div>
+  </aside>
+
+  <!-- Delivery Location Selector Modal -->
+  <div class="modal-backdrop" id="locationModal" onclick="if(event.target===this)closeLocationModal()">
+    <div class="auth-form-card" style="width:100%;max-width:420px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3 style="font-size:1.1rem;font-weight:800;">📍 Select Delivery Area</h3>
+        <button class="close-x" onclick="closeLocationModal()">✕</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+        <button class="action-btn" style="justify-content:space-between;width:100%;padding:12px 16px;" onclick="setDeliveryLocation('Riyadh, Saudi Arabia')">
+          <span>Riyadh, Saudi Arabia (Al Olaya / Qurtubah)</span><span>→</span>
+        </button>
+        <button class="action-btn" style="justify-content:space-between;width:100%;padding:12px 16px;" onclick="setDeliveryLocation('Al Malaz, Riyadh')">
+          <span>Al Malaz / Batha, Riyadh</span><span>→</span>
+        </button>
+        <button class="action-btn" style="justify-content:space-between;width:100%;padding:12px 16px;" onclick="setDeliveryLocation('Jeddah, Saudi Arabia')">
+          <span>Jeddah, Saudi Arabia</span><span>→</span>
+        </button>
+        <button class="action-btn" style="justify-content:space-between;width:100%;padding:12px 16px;" onclick="setDeliveryLocation('Dammam / Al Khobar')">
+          <span>Dammam / Al Khobar</span><span>→</span>
+        </button>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <input type="text" id="customLocInput" placeholder="Or enter custom street address..." style="flex:1;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;font-size:0.84rem;" />
+        <button class="btn-orange-pill" onclick="const v=document.getElementById('customLocInput').value.trim();if(v)setDeliveryLocation(v);">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
