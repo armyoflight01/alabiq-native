@@ -131,10 +131,28 @@
               <div class="hero-pill"><span>📍</span> Live Tracking</div>
             </div>
           </div>
-          <div class="shop-hero-visual">
-            <div class="hero-plate-frame">
-              <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281298?auto=format&fit=crop&w=700&q=80" alt="AlabIQ Signature Pasta & Dishes" />
+          <div class="shop-hero-visual" onmouseenter="pauseHeroCarousel(true)" onmouseleave="pauseHeroCarousel(false)">
+            <div class="hero-carousel-wrap">
+              <button class="hero-car-arrow prev" onclick="moveHeroCarousel(-1)" aria-label="Previous product">‹</button>
+              <div class="hero-plate-frame hero-carousel-frame">
+                <div class="hero-carousel-track" id="heroCarouselTrack">
+                  <!-- Populated dynamically by renderHeroProductCarousel() in app.js with immediate static first slide fallback -->
+                  <div class="hero-carousel-slide active">
+                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=600&q=80" alt="Sizzling Chicken Sisig Platter" />
+                    <div class="hero-slide-top">
+                      <span class="hero-slide-store" onclick="openStoreModal('black-pinoy')">🏪 BLACK PINOY</span>
+                      <span class="hero-slide-price">SAR 34.00</span>
+                    </div>
+                    <div class="hero-slide-bottom">
+                      <div class="hero-slide-title">Sizzling Chicken Sisig Platter</div>
+                      <button class="hero-slide-add" onclick="addToCart('p1')">+ Add</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="hero-car-arrow next" onclick="moveHeroCarousel(1)" aria-label="Next product">›</button>
             </div>
+            <div class="hero-carousel-dots" id="heroCarouselDots"></div>
             <div class="scooter-badge">
               🛵 We DeliveRED
             </div>

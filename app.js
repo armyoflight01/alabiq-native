@@ -1161,12 +1161,86 @@ function switchPhonePreview(mode) {
   }
 }
 
+// =========================================================
+// HERO PRODUCT & DISH IMAGE CAROUSEL (CIRCLED AREA)
+// =========================================================
+const HERO_CAROUSEL_PRODUCT_IDS = ['p1', 'p4', 'p5', 'p7', 'p9', 'p11', 'p13', 'p14'];
+let heroCarouselIndex = 0;
+let heroCarouselPaused = false;
+let heroCarouselInterval = null;
+
+function getHeroCarouselProducts() {
+  return HERO_CAROUSEL_PRODUCT_IDS
+    .map(id => PRODUCTS.find(p => p.id === id))
+    .filter(Boolean);
+}
+
+function renderHeroProductCarousel() {
+  const track = document.getElementById('heroCarouselTrack');
+  const dots = document.getElementById('heroCarouselDots');
+  if (!track || !dots) return;
+
+  const items = getHeroCarouselProducts();
+  if (items.length === 0) return;
+
+  if (heroCarouselIndex >= items.length) heroCarouselIndex = 0;
+  if (heroCarouselIndex < 0) heroCarouselIndex = items.length - 1;
+
+  track.innerHTML = items.map((prod, idx) => `
+    <div class="hero-carousel-slide ${idx === heroCarouselIndex ? 'active' : ''}">
+      <img src="${prod.img}" alt="${prod.name}" />
+      <div class="hero-slide-top">
+        <span class="hero-slide-store" onclick="openStoreModal('${prod.storeId}')">🏪 ${prod.storeName}</span>
+        <span class="hero-slide-price">SAR ${prod.price.toFixed(2)}</span>
+      </div>
+      <div class="hero-slide-bottom">
+        <div class="hero-slide-title">${prod.name}</div>
+        <button class="hero-slide-add" onclick="addToCart('${prod.id}')">+ Add</button>
+      </div>
+    </div>
+  `).join('');
+
+  dots.innerHTML = items.map((_, idx) => `
+    <button
+      class="hero-car-dot ${idx === heroCarouselIndex ? 'active' : ''}"
+      onclick="goToHeroSlide(${idx})"
+      aria-label="Go to slide ${idx + 1}"
+    ></button>
+  `).join('');
+}
+
+function moveHeroCarousel(delta) {
+  const items = getHeroCarouselProducts();
+  if (!items.length) return;
+  heroCarouselIndex = (heroCarouselIndex + delta + items.length) % items.length;
+  renderHeroProductCarousel();
+}
+
+function goToHeroSlide(index) {
+  heroCarouselIndex = index;
+  renderHeroProductCarousel();
+}
+
+function pauseHeroCarousel(paused) {
+  heroCarouselPaused = paused;
+}
+
+function startHeroCarouselAutoPlay() {
+  if (heroCarouselInterval) clearInterval(heroCarouselInterval);
+  heroCarouselInterval = setInterval(() => {
+    if (!heroCarouselPaused) {
+      moveHeroCarousel(1);
+    }
+  }, 3500);
+}
+
 function toggleFaq(el) {
   el.parentElement.classList.toggle('open');
 }
 
 function renderAll() {
   renderHeaderState();
+  renderHeroProductCarousel();
   renderCategories();
   renderStores();
   renderProducts();
@@ -1175,6 +1249,7 @@ function renderAll() {
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
   renderAll();
+  startHeroCarouselAutoPlay();
   switchPhonePreview('map');
   calculateRideFare();
 
